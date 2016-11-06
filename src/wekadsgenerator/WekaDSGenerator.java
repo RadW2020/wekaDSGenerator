@@ -22,6 +22,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,12 +44,16 @@ public class WekaDSGenerator {
     
     
     /**
-     * This method read a header file and return 
+     * This method read a header file and return an ArrayList of Strings
+     * that contains the data types of the columns in order
      * @param headerFileName 
      */
-    public void readHeaderFile(String headerFileName){
+    public ArrayList<String> readHeaderFile(String headerFileName){
+        // arrayList for returning the datatypes of the columns
+        ArrayList<String> arrayOfDataTypes = new ArrayList<>();
+        
         File file = new File(headerFileName);
-        //this.headerFile = headerFile;
+        
         String line;
         InputStream fis;
         try {
@@ -63,14 +68,17 @@ public class WekaDSGenerator {
             
             switch ( words[0].toLowerCase() ){
                 case ("@relation"):
-                    //nombre del dataset a titulo informativo
+                    // nombre del dataset a titulo informativo
                     // no hacemos nada
                     break;
-                case ("@attribute "):
+                case ("@attribute"):
+                    // Extraer el tipo de dato
+                    arrayOfDataTypes.add(words[2]);
+                    
                     
                     break;
                 case ("@data"):
-                    System.err.println("Wring header file. It contains data.");
+                    System.err.println("Wrong header file. It contains data.");
                     System.exit(1);
                     break;
                 case ("%"):
@@ -99,7 +107,7 @@ public class WekaDSGenerator {
             
         
         
-        
+        return arrayOfDataTypes;
     }
     
 
