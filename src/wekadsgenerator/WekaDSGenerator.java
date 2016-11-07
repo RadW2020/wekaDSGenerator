@@ -40,7 +40,7 @@ public class WekaDSGenerator {
     
     static StringBuilder outPut;
     //Nombre del archivo con el Weka header en la raiz del proyecto de Netbeans
-    static String headerFileName = "archivoWekaCustomHeader.txt";
+    static String headerFileName = "exampleFile.txt";
     
     
     /**
